@@ -1,8 +1,0 @@
-{
-  "note": "Placeholder. Populate after training a real BitNet checkpoint and evaluating on validation/downstream data.",
-  "paper_reference_values": {
-    "bitnet_6_7B": {"ppl": 17.07, "winogrande": 51.4, "winograd": 66.3, "hellaswag": 38.9, "storycloze": 66.9, "avg": 55.9},
-    "fp16_transformer_6_7B": {"ppl": 15.19, "winogrande": 54.3, "winograd": 66.7, "hellaswag": 42.9, "storycloze": 67.4, "avg": 57.8}
-  },
-  "your_results": {}
-}
