@@ -1,0 +1,1 @@
+TODO: draw my own ASCII architecture diagram of BitNet (embedding -> transformer blocks with BitLinear attention/FFN -> output projection).
