@@ -1,5 +1,0 @@
-{
-  "note": "Placeholder. Fit L(N) = a*N^b + c (Eq. 19) once you have loss values across multiple model sizes.",
-  "paper_reference_model_sizes": ["125M", "350M", "760M", "1.3B", "2.7B", "6.7B", "13B", "30B"],
-  "your_results": {}
-}
