@@ -44,4 +44,4 @@ It punishes confident wrongness much more harshly. If the model assigns "mat" a 
 It matches probability theory nicely — cross-entropy loss is mathematically tied to "how surprised should the model be by the true answer," which is exactly what you want to minimize.
 
 
-REVISE WHAT IS A LINEAR TRANSFORMATION IN MATRIX MULTIPLICATION, and LOSS FUNCTION 
+REVISE WHAT IS A LINEAR TRANSFORMATION IN MATRIX MULTIPLICATION, and LOSS FUNCTION @
