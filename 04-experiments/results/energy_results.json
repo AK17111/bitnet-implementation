@@ -1,0 +1,10 @@
+{
+  "note": "Placeholder. Run 04-experiments/benchmark_vs_paper.py to generate real measurements for your model size.",
+  "paper_reference_table1_7nm_joules": {
+    "transformer_6.7B_fp32": {"mul": 4.41, "add": 1.28},
+    "transformer_6.7B_fp16": {"mul": 1.14, "add": 0.54},
+    "bitnet_6.7B_w1a8": {"mul": 0.02, "add": 0.04},
+    "transformer_30B_fp32": {"mul": 20.09, "add": 5.83},
+    "bitnet_30B_w1a8": {"mul": 0.06, "add": 0.14}
+  }
+}
