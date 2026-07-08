@@ -15,6 +15,7 @@ This is extreme compression: instead of needing 16 or 32 bits to store each numb
 Memory footprint — the model file/weights take far less space.
 Energy/compute cost — multiplying by +1 or −1 is trivial (it's just a sign flip), so the expensive multiplication step is nearly eliminated; the paper notes this in Section 2.3, where BitNet's energy cost is dominated by cheap addition instead of costly multiplication.
 
+Another reason why model quantization is a promising solution is that on distributed systems, the inter-device communication overhead can significantly impact the inference latency and energy consumption.
 
 What does "Training a model" mean in this context. 
 "Training a model" means: automatically adjusting all those weight numbers (in the matrices we just talked about) so that the model gets better at some task — in this case, predicting the next token in a piece of text.
@@ -35,6 +36,18 @@ Over time, this process shapes the random noise in the weight matrices into stru
 BitNet and the FP16 Transformers it's compared against are all trained as autoregressive language models, meaning their one job is: given all the tokens so far, predict the next one. The paper says this directly: "We train a series of autoregressive language models with BitNet of various scales."
 
 
+FFN stands for Feed-Forward Network — it's the second of the two main building blocks inside each Transformer layer (the first being attention, which we covered earlier). You can see it labeled right in Figure 2(b) of the paper, sitting right after "Multi-Head Attention" in each layer.
+Here's what it does, step by step:
+
+Attention's job (recap): let each token gather relevant context from other tokens in the sequence.
+FFN's job: take each token's vector (now enriched with context from attention) and process it further, independently for each token — no interaction between tokens happens here, unlike attention.
+
+Concretely, an FFN is usually just two nn.Linear layers stacked with a non-linear function in between:
+
+You can see this exact structure in Figure 2(b) — the paper's diagram shows BitLinear → GELU → BitLinear as the FFN block. The "expand then compress" pattern gives the network extra capacity to do complex transformations on each token's information before passing it to the next layer.
+Why does this matter for BitNet? Because the FFN is where a huge chunk of a Transformer's total parameters and compute live — those expanded matrices are big. This is exactly why replacing nn.Linear with BitLinear inside the FFN (as well as attention) is where most of BitNet's memory and energy savings come from.
+
+
 LOSS FUNCTION, AND HOW IT IS CALCULATED -
 The actual formula almost every language model uses is called cross-entropy loss, and it's:
 loss = -log(probability assigned to the correct token)
@@ -45,3 +58,5 @@ It matches probability theory nicely — cross-entropy loss is mathematically ti
 
 
 REVISE WHAT IS A LINEAR TRANSFORMATION IN MATRIX MULTIPLICATION, and LOSS FUNCTION @
+
+
